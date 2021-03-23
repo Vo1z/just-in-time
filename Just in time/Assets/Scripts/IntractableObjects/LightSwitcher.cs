@@ -22,8 +22,6 @@ public class LightSwitcher : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log("Stay");
-    
         var playerController = other.transform.GetComponent<PlayerController>();
         if (Input.GetKey(KeyCode.E) && playerController != null && _isAvailable)
         {

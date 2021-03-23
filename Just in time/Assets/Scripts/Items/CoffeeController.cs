@@ -8,17 +8,28 @@ public class CoffeeController : MonoBehaviour
 
     [Header("Gizmos")] 
     [SerializeField] private float gizmosPositionOffset = 1.2f;
-
     [SerializeField] private bool isDisplayed = true;
+    
+    private PlayerAttributes _playerAttributes;
+    private void Start()
+    {
+        _playerAttributes = GameObject.FindWithTag("Player").GetComponent<PlayerAttributes>();
+    }
+
+    public void Consume()
+    {
+        _playerAttributes.SpeedUp(deltaSpeed, speedUpTime, timeToWaitForBoost);
+        Destroy(gameObject);
+    }
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        PlayerAttributes attributes = other.transform.GetComponent<PlayerAttributes>();
+        var playerInventory = other.transform.GetComponent<PlayerInventory>();
 
-        if (attributes != null)
+        if (playerInventory != null)
         {
-            attributes.SpeedUp(deltaSpeed, speedUpTime, timeToWaitForBoost);
-            Destroy(gameObject);
+            if (playerInventory.AddItem(gameObject));
+                gameObject.SetActive(false);
         }
     }
 

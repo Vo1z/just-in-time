@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,15 +11,28 @@ public class PaniniController : MonoBehaviour
     [Header("Gizmos")] 
     [SerializeField] private float gizmosPositionOffset = 1.05f;
     [SerializeField] private bool isDisplayed = true;
-    
+
+    private PlayerAttributes _playerAttributes;
+
+    private void Start()
+    {
+        _playerAttributes = GameObject.FindWithTag("Player").GetComponent<PlayerAttributes>();
+    }
+
+    public void Consume()
+    {
+        _playerAttributes.RegenerateHealth(hpRegeneration);
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        PlayerAttributes attributes = other.transform.GetComponent<PlayerAttributes>();
+        var playerInventory = other.transform.GetComponent<PlayerInventory>();
 
-        if (attributes != null)
+        if (playerInventory != null)
         {
-            attributes.RegenerateHealth(hpRegeneration);
-            Destroy(gameObject);
+            if (playerInventory.AddItem(gameObject));
+                gameObject.SetActive(false);
         }
     }
     

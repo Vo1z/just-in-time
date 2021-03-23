@@ -9,10 +9,11 @@ public class PlayerAttributes : MonoBehaviour
     [SerializeField] private float speed = 250f;
     [SerializeField] private float jumpForce = 10f;
 
+
+    public bool IsUnderSpeedBoost { get; private set; } = false;
     public float Speed => speed;
     public float JumpForce => jumpForce;
     public float Health => health;
-
 
     private float _originalSpeed;
 
@@ -23,16 +24,22 @@ public class PlayerAttributes : MonoBehaviour
 
     private void Update()
     {
-        if (health < 1)
-        {
+        if (health < 1) 
             Destroy(gameObject);
-            //todo debug
-            Debug.Log("Game Over");
-        }
+    }
+
+    public void SpeedUp(float deltaSpeed, float speedUpTime, float timeToWaitForBoost = 5f)
+    {
+        StartCoroutine(IncreaseSpeed(deltaSpeed, speedUpTime, timeToWaitForBoost));
+        
+        //todo debug
+        Debug.Log($"{deltaSpeed} speed were added for {speedUpTime} to {gameObject.name}");
     }
 
     private IEnumerator IncreaseSpeed(float deltaSpeed, float speedUpTime, float timeToWaitForBoost)
     {
+        IsUnderSpeedBoost = true;
+        
         float secondsToWait = timeToWaitForBoost / 10f;
         float speedToIncreaseForIteration = deltaSpeed / 10f;
 
@@ -44,30 +51,11 @@ public class PlayerAttributes : MonoBehaviour
 
         yield return new WaitForSeconds(speedUpTime);
 
+        IsUnderSpeedBoost = false;
         speed = _originalSpeed;
     }
-    
-    public void SpeedUp(float deltaSpeed, float speedUpTime, float timeToWaitForBoost = 5f)
-    {
-        StartCoroutine(IncreaseSpeed(deltaSpeed, speedUpTime, timeToWaitForBoost));
-        
-        //todo debug
-        Debug.Log($"{deltaSpeed} speed were added for {speedUpTime} to {gameObject.name}");
-    }
 
-    public void Hurt(float damage)
-    {
-        health -= damage;
-        
-        //todo debug
-        Debug.Log($"{damage} damage was dealt to {gameObject.name}");
-    }
+    public void Hurt(float damage) => health -= damage;
 
-    public void RegenerateHealth(float regenerationPoints)
-    {
-        health += regenerationPoints;
-        
-        //todo debug
-        Debug.Log($"{regenerationPoints} hp was regenerated to {gameObject.name}");
-    }
+    public void RegenerateHealth(float regenerationPoints) => health += regenerationPoints;
 }
