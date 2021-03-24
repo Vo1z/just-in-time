@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class PlayerAttributes : MonoBehaviour
@@ -8,8 +7,7 @@ public class PlayerAttributes : MonoBehaviour
     [SerializeField] private float health = 100f;
     [SerializeField] private float speed = 250f;
     [SerializeField] private float jumpForce = 10f;
-
-
+    
     public bool IsUnderSpeedBoost { get; private set; } = false;
     public float Speed => speed;
     public float JumpForce => jumpForce;
@@ -28,13 +26,7 @@ public class PlayerAttributes : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void SpeedUp(float deltaSpeed, float speedUpTime, float timeToWaitForBoost = 5f)
-    {
-        StartCoroutine(IncreaseSpeed(deltaSpeed, speedUpTime, timeToWaitForBoost));
-        
-        //todo debug
-        Debug.Log($"{deltaSpeed} speed were added for {speedUpTime} to {gameObject.name}");
-    }
+    public void SpeedUp(float deltaSpeed, float speedUpTime, float timeToWaitForBoost = 5f) => StartCoroutine(IncreaseSpeed(deltaSpeed, speedUpTime, timeToWaitForBoost));
 
     private IEnumerator IncreaseSpeed(float deltaSpeed, float speedUpTime, float timeToWaitForBoost)
     {

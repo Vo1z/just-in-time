@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -23,12 +22,15 @@ public class PlayerInventory : MonoBehaviour
         _pockets.Add(itemTags[2], _hpRegenerators);
     }
 
-    public bool AddItem(GameObject item) 
+    public bool AddItem(GameObject item, bool setActive) 
     {
         var totalNumberOfItems = _specialItems.Count + _speedBoosters.Count + _hpRegenerators.Count;
         if (itemTags.Contains(item.tag) && totalNumberOfItems <= maxNumberOfItems)
         {
             _pockets[item.tag].Add(item);
+            item.SetActive(setActive);
+            
+            return true;
         }
 
         return false;

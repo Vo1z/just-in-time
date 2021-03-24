@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PaniniController : MonoBehaviour
 {
@@ -16,7 +13,7 @@ public class PaniniController : MonoBehaviour
 
     private void Start()
     {
-        _playerAttributes = GameObject.FindWithTag("Player").GetComponent<PlayerAttributes>();
+        _playerAttributes = GameController.SPlayer.PlayerAttributes;
     }
 
     public void Consume()
@@ -30,10 +27,7 @@ public class PaniniController : MonoBehaviour
         var playerInventory = other.transform.GetComponent<PlayerInventory>();
 
         if (playerInventory != null)
-        {
-            if (playerInventory.AddItem(gameObject));
-                gameObject.SetActive(false);
-        }
+            playerInventory.AddItem(gameObject, false);
     }
     
     private void OnDrawGizmos()

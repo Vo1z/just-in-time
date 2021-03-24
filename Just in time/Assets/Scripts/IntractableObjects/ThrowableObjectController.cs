@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -21,8 +20,8 @@ public class ThrowableObjectController : MonoBehaviour
     {
         _polygonCollider2D = GetComponent<PolygonCollider2D>();
         _trigger = GetComponent<BoxCollider2D>();
-        _player = GameObject.FindWithTag("Player");
-        _playerAttributes = _player.GetComponent<PlayerAttributes>();
+        _player = GameController.SPlayer.Player;
+        _playerAttributes = GameController.SPlayer.PlayerAttributes;
         _rigidbody2D = GetComponent<Rigidbody2D>();
 
         _trigger.isTrigger = true;
@@ -35,7 +34,7 @@ public class ThrowableObjectController : MonoBehaviour
         if (_isReadyToThrow && _player != null)
         {
             var velocity = Vector3.zero;
-            var itemPosition = _player.transform.position + _player.GetComponent<EnvironmentInteraction>().ThrowableItemOffset;
+            var itemPosition = _player.transform.position + GameController.SPlayer.PlayerEnvironmentInteraction.ThrowableItemOffset;
 
             transform.position = Vector3.SmoothDamp(transform.position, itemPosition, ref velocity, .01f);
 

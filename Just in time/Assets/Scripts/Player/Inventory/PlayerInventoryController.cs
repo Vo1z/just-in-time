@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInventory))]
 public class PlayerInventoryController : MonoBehaviour
 {
-    private PlayerInventory _inventory;
     [SerializeField] private float speedBoosterCoolDown = 3f;
     [SerializeField] private float hpRegeneratorCoolDown = 3f;
 
+    private PlayerInventory _inventory;
+    
     private bool _speedBoosterIsReady = true;
     private bool _hpRegeneratorIsReady = true;
-
-
+    
     public enum ConsumerType
     {
         SpeedBoost,

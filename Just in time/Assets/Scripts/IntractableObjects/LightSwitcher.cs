@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
@@ -22,8 +21,7 @@ public class LightSwitcher : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        var playerController = other.transform.GetComponent<PlayerController>();
-        if (Input.GetKey(KeyCode.E) && playerController != null && _isAvailable)
+        if (Input.GetKey(KeyCode.E) && other.gameObject.tag.Equals("Player") && _isAvailable)
         {
             _animator.SetBool("IsOn", !_animator.GetBool("IsOn"));
             lightSource.enabled = !lightSource.enabled;

@@ -13,7 +13,7 @@ public class CoffeeController : MonoBehaviour
     private PlayerAttributes _playerAttributes;
     private void Start()
     {
-        _playerAttributes = GameObject.FindWithTag("Player").GetComponent<PlayerAttributes>();
+        _playerAttributes = GameController.SPlayer.PlayerAttributes;
     }
 
     public void Consume()
@@ -26,11 +26,8 @@ public class CoffeeController : MonoBehaviour
     {
         var playerInventory = other.transform.GetComponent<PlayerInventory>();
 
-        if (playerInventory != null)
-        {
-            if (playerInventory.AddItem(gameObject));
-                gameObject.SetActive(false);
-        }
+        if (playerInventory != null) 
+            playerInventory.AddItem(gameObject, false);
     }
 
     private void OnDrawGizmos()

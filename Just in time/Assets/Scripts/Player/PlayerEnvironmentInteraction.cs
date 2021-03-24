@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class EnvironmentInteraction : MonoBehaviour
+public class PlayerEnvironmentInteraction : MonoBehaviour
 {
     public Vector3 ThrowableItemOffset;
 

@@ -13,19 +13,18 @@ public class CharacterFollower : MonoBehaviour
     private Vector3 _cameraOffset;
     void Start()
     {
-        var pos = player.transform.position;
-
-        _cameraOffset = transform.position - pos;
+        _cameraOffset = transform.position - player.transform.position;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
+        var position = transform.position;
         Vector3 targetPosition = player.transform.position + _cameraOffset;
-        targetPosition.z = transform.position.z;
+        targetPosition.z = position.z;
         
         var velocity = Vector3.zero;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition,
+        position = Vector3.SmoothDamp(position, targetPosition,
             ref velocity, transferSpeed);
+        transform.position = position;
     }
 }

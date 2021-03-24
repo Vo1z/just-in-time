@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class ConsumablesDisplayScript : MonoBehaviour
 {
     [SerializeField] private float offset = 5f;
-    [SerializeField] private Sprite itemSprite;
     [SerializeField] private string itemTag = "SpeedBooster";
     
     private GameObject _parentCanvas;
@@ -19,7 +18,7 @@ public class ConsumablesDisplayScript : MonoBehaviour
     {
         _parentCanvas = transform.parent.gameObject;
         _startImage = GetComponent<Image>();
-        _playerInventory = GameObject.FindWithTag("Player").GetComponent<PlayerInventory>();
+        _playerInventory = GameController.SPlayer.PlayerInventory;
 
         _startImage.enabled = false;
     }
