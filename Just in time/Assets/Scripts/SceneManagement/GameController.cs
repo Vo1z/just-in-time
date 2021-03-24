@@ -9,9 +9,10 @@ public class GameController : MonoBehaviour
         public static PlayerInventory PlayerInventory { get; internal set; }
         public static PlayerInventoryController PlayerInventoryController { get; internal set; }
         public static PlayerEnvironmentInteraction PlayerEnvironmentInteraction { get; internal set; }
+        
     }
     
-    void Start()
+    void Awake()
     {
         SPlayer.Player = GameObject.FindWithTag("Player");
         SPlayer.PlayerAttributes = SPlayer.Player.GetComponent<PlayerAttributes>();
