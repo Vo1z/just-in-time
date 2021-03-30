@@ -4,8 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInventory))]
 public class PlayerInventoryController : MonoBehaviour
 {
-    [SerializeField] private float speedBoosterCoolDown = 3f;
-    [SerializeField] private float hpRegeneratorCoolDown = 3f;
+    [SerializeField] private float pocketCoolDown = 3f;
 
     private PlayerInventory _inventory;
     
@@ -37,20 +36,20 @@ public class PlayerInventoryController : MonoBehaviour
                     consumable1.Consume();
                     _pocket1IsReady = false;
 
-                    yield return new WaitForSeconds(speedBoosterCoolDown);
+                    yield return new WaitForSeconds(pocketCoolDown);
                 }
 
                 _pocket1IsReady = true;
                 break;
             
             case PlayerInventory.Pocket.Pocket2:
-                var consumable2 = _inventory.GetItemFromPocket(PlayerInventory.Pocket.Pocket1, true);
+                var consumable2 = _inventory.GetItemFromPocket(PlayerInventory.Pocket.Pocket2, true);
                 if (consumable2 != null)
                 {
                     consumable2.Consume();
                     _pocket2IsReady = false;
 
-                    yield return new WaitForSeconds(speedBoosterCoolDown);
+                    yield return new WaitForSeconds(pocketCoolDown);
                 }
 
                 _pocket2IsReady = true;

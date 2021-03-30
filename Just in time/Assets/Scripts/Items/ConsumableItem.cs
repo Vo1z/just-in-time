@@ -13,7 +13,7 @@ public class ConsumableItem : Item
 
     protected PlayerAttributes _playerAttributes;
     
-    protected void Start()
+    protected new void Start()
     {
         base.Start();
         _playerAttributes = GameController.SPlayer.PlayerAttributes;
