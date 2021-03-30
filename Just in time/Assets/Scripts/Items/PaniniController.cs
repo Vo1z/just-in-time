@@ -1,33 +1,20 @@
 ﻿using UnityEngine;
 
-public class PaniniController : MonoBehaviour
+public class PaniniController : ConsumableItem
 {
-    [Range(0, 100)]
-    [SerializeField] private float hpRegeneration = 20f;
-    
     [Header("Gizmos")] 
     [SerializeField] private float gizmosPositionOffset = 1.05f;
     [SerializeField] private bool isDisplayed = true;
 
-    private PlayerAttributes _playerAttributes;
-
-    private void Start()
+    private new void Start()
     {
-        _playerAttributes = GameController.SPlayer.PlayerAttributes;
-    }
-
-    public void Consume()
-    {
-        _playerAttributes.RegenerateHealth(hpRegeneration);
-        Destroy(gameObject);
+        base.Start();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var playerInventory = other.transform.GetComponent<PlayerInventory>();
-
-        if (playerInventory != null)
-            playerInventory.AddItem(gameObject, false);
+        if (other.tag.Equals("Player")) 
+            _playerInventory.AddItem(this, false);
     }
     
     private void OnDrawGizmos()

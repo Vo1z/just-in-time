@@ -9,14 +9,8 @@ public class PlayerInventoryController : MonoBehaviour
 
     private PlayerInventory _inventory;
     
-    private bool _speedBoosterIsReady = true;
-    private bool _hpRegeneratorIsReady = true;
-    
-    public enum ConsumerType
-    {
-        SpeedBoost,
-        HpRegenerator
-    }
+    private bool _pocket1IsReady = true;
+    private bool _pocket2IsReady = true;
 
     private void Start()
     {
@@ -25,43 +19,41 @@ public class PlayerInventoryController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Keypad1) && _speedBoosterIsReady)
-            StartCoroutine(UseConsumer(ConsumerType.SpeedBoost));
+        if (Input.GetKey(KeyCode.Keypad1) && _pocket1IsReady)
+            StartCoroutine(UseConsumable(PlayerInventory.Pocket.Pocket1));
 
-        if (Input.GetKey(KeyCode.Keypad2) && _hpRegeneratorIsReady)
-            StartCoroutine(UseConsumer(ConsumerType.HpRegenerator));
+        if (Input.GetKey(KeyCode.Keypad2) && _pocket2IsReady)
+            StartCoroutine(UseConsumable(PlayerInventory.Pocket.Pocket2));
     }
 
-    public IEnumerator UseConsumer(ConsumerType consumerType)
+    public IEnumerator UseConsumable(PlayerInventory.Pocket pocket)
     {
-        switch (consumerType)
+        switch (pocket)
         {
-            case ConsumerType.SpeedBoost:
-                var speedBooster = _inventory.GetFirstItemInGivenPocket("SpeedBooster");
-                if (speedBooster != null)
+            case PlayerInventory.Pocket.Pocket1:
+                var consumable1 = _inventory.GetItemFromPocket(PlayerInventory.Pocket.Pocket1, true);
+                if (consumable1 != null)
                 {
-                    _inventory.RemoveItem(speedBooster);
-                    speedBooster.GetComponent<CoffeeController>().Consume();
-                    _speedBoosterIsReady = false;
+                    consumable1.Consume();
+                    _pocket1IsReady = false;
 
                     yield return new WaitForSeconds(speedBoosterCoolDown);
                 }
 
-                _speedBoosterIsReady = true;
+                _pocket1IsReady = true;
                 break;
             
-            case ConsumerType.HpRegenerator:
-                var hpBooster = _inventory.GetFirstItemInGivenPocket("HpRegenerator");
-                if (hpBooster != null)
+            case PlayerInventory.Pocket.Pocket2:
+                var consumable2 = _inventory.GetItemFromPocket(PlayerInventory.Pocket.Pocket1, true);
+                if (consumable2 != null)
                 {
-                    _inventory.RemoveItem(hpBooster);
-                    hpBooster.GetComponent<PaniniController>().Consume();
-                    _hpRegeneratorIsReady = false;
-                    
-                    yield return new WaitForSeconds(hpRegeneratorCoolDown);
+                    consumable2.Consume();
+                    _pocket2IsReady = false;
+
+                    yield return new WaitForSeconds(speedBoosterCoolDown);
                 }
 
-                _hpRegeneratorIsReady = true;
+                _pocket2IsReady = true;
                 break;
         }
     }

@@ -1,63 +1,54 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
 public class ConsumablesDisplayScript : MonoBehaviour
 {
-    [SerializeField] private float offset = 5f;
-    [SerializeField] private string itemTag = "SpeedBooster";
+    [SerializeField] private float spacing = 5f;
+    [SerializeField] private PlayerInventory.Pocket pocket = PlayerInventory.Pocket.Pocket1;
+
+    private float _currentOffset;
     
     private GameObject _parentCanvas;
     private Image _startImage;
-    private PlayerInventory _playerInventory;
     
-    private List<GameObject> _speedBoosters = new List<GameObject>();
+    private Stack<ConsumableItem> _pocketWithConsumables;
+    private Stack<GameObject> _icons = new Stack<GameObject>();
+
     private void Start()
     {
         _parentCanvas = transform.parent.gameObject;
-        _startImage = GetComponent<Image>();
-        _playerInventory = GameController.SPlayer.PlayerInventory;
-
-        _startImage.enabled = false;
+        _pocketWithConsumables = GameController.SPlayer.PlayerInventory.GetPocket(pocket);
+        
+        GetComponent<Image>().enabled = false;
     }
 
     void Update()
     {
-        if (!CompareLists(_speedBoosters, _playerInventory.GetItemsByTag(itemTag)))
+        if (_icons.Count != _pocketWithConsumables.Count)
         {
-            for (var i = 0; i < _speedBoosters.Count; i++)
+            foreach (var icon in _icons)
+                Destroy(icon);
+            _icons.Clear();
+            _currentOffset = 0;
+
+            foreach (var item in _pocketWithConsumables)
             {
-                _speedBoosters[i].transform.position = transform.position + Vector3.right * (i * offset);
+                var newIcon = new GameObject();
+                var image = newIcon.AddComponent<Image>();
+                var iconScale = newIcon.transform.localScale;
+                image.sprite = item.InterfaceSprite;
+                image.GetComponent<RectTransform>().sizeDelta = item.ImageSize;
+
+                newIcon.transform.position = transform.position + Vector3.down * _currentOffset;
+                newIcon.transform.SetParent(_parentCanvas.transform);
+                newIcon.transform.localScale = iconScale;
+                
+                _icons.Push(newIcon);
+                
+                _currentOffset += spacing;
             }
         }
-    }
-
-    private bool CompareLists(List<GameObject> localList, List<GameObject> commonList)
-    {
-        if (localList.Count() < commonList.Count())
-        {
-            var newIcon = new GameObject();
-            var image = newIcon.AddComponent<Image>();
-            image.sprite = _startImage.sprite;
-            image.rectTransform.sizeDelta = _startImage.rectTransform.sizeDelta;
-            newIcon.transform.SetParent(_parentCanvas.transform);
-            newIcon.SetActive(true);
-
-            localList.Add(newIcon);
-
-            return false;
-        }
-        if (localList.Count() > commonList.Count())
-        {
-            var iconToRemove = localList[localList.Count - 1];
-            localList.RemoveAt(localList.Count - 1);
-            Destroy(iconToRemove);
-            
-            return false;
-        }
-
-        return true;
     }
 }

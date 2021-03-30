@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -9,26 +10,35 @@ public class PlayerInventory : MonoBehaviour
 
     public string[] itemTags = {"SpecialItem", "SpeedBooster", "HpRegenerator"};
 
-    private List<GameObject> _specialItems = new List<GameObject>();
-    private List<GameObject> _speedBoosters = new List<GameObject>();
-    private List<GameObject> _hpRegenerators = new List<GameObject>();
+    private List<Item> _specialItems = new List<Item>();
+    private Stack<ConsumableItem> _pocket1 = new Stack<ConsumableItem>();
+    private Stack<ConsumableItem> _pocket2 = new Stack<ConsumableItem>();
 
-    private Dictionary<string, List<GameObject>> _pockets = new Dictionary<string, List<GameObject>>();
+    public int CurrentNumberOfItems => _pocket1.Count + _pocket2.Count + _specialItems.Count;
 
-    private void Start()
+    public enum Pocket
     {
-        _pockets.Add(itemTags[0], _specialItems);
-        _pockets.Add(itemTags[1], _speedBoosters);
-        _pockets.Add(itemTags[2], _hpRegenerators);
+        Pocket1,
+        Pocket2,
     }
-
-    public bool AddItem(GameObject item, bool setActive) 
+    
+    public bool AddItem(Item item, bool setActive) 
     {
-        var totalNumberOfItems = _specialItems.Count + _speedBoosters.Count + _hpRegenerators.Count;
-        if (itemTags.Contains(item.tag) && totalNumberOfItems <= maxNumberOfItems)
+        if (CurrentNumberOfItems <= maxNumberOfItems && item != null)
         {
-            _pockets[item.tag].Add(item);
-            item.SetActive(setActive);
+            if (item is ConsumableItem)
+            {
+                if (_pocket1.Count >= _pocket2.Count)
+                    _pocket2.Push((ConsumableItem)item);
+                else
+                    _pocket1.Push((ConsumableItem)item);
+            }
+            else
+            {
+                _specialItems.Add(item);
+            }
+
+            item.gameObject.SetActive(setActive);
             
             return true;
         }
@@ -36,23 +46,44 @@ public class PlayerInventory : MonoBehaviour
         return false;
     }
 
-    public void RemoveItem(GameObject item)
+    public ConsumableItem GetItemFromPocket(Pocket pocket, bool removeItem = false)
     {
-        _pockets[item.tag].Remove(item);
+        switch (pocket)
+        {
+            case Pocket.Pocket1:
+                if (_pocket1.Count > 0)
+                {
+                    if (removeItem)
+                        return _pocket1.Pop();
+                    return _pocket1.Peek();
+                }
+                else
+                    return null;
+
+            case Pocket.Pocket2:
+                if (_pocket2.Count > 0)
+                {
+                    if (removeItem)
+                        return _pocket2.Pop();
+                    return _pocket2.Peek();
+                }
+                else
+                    return null;
+        }
+
+        return null;
     }
 
-    public List<GameObject> GetItemsByTag(string pocketTag)
+    public Stack<ConsumableItem> GetPocket(Pocket pocket)
     {
-        return _pockets[pocketTag];
-    }
-    
-    public GameObject GetFirstItemInGivenPocket(string pocketTag)
-    {
-        var itemList = _pockets[pocketTag];
-        
-        if(itemList.Count > 0)
-            return itemList[0];
-        
+        switch (pocket)
+        {
+            case Pocket.Pocket1:
+                return _pocket1;
+            case Pocket.Pocket2:
+                return _pocket2;
+        }
+
         return null;
     }
 }

@@ -1,33 +1,20 @@
 ﻿using UnityEngine;
 
-public class CoffeeController : MonoBehaviour
+public class CoffeeController : ConsumableItem
 {
-    [SerializeField] private float deltaSpeed = 800f;
-    [SerializeField] private float speedUpTime = 1f;
-    [SerializeField] private float timeToWaitForBoost = 5f; 
-
     [Header("Gizmos")] 
     [SerializeField] private float gizmosPositionOffset = 1.2f;
     [SerializeField] private bool isDisplayed = true;
     
-    private PlayerAttributes _playerAttributes;
-    private void Start()
+    private new void Start()
     {
-        _playerAttributes = GameController.SPlayer.PlayerAttributes;
+        base.Start();
     }
 
-    public void Consume()
-    {
-        _playerAttributes.SpeedUp(deltaSpeed, speedUpTime, timeToWaitForBoost);
-        Destroy(gameObject);
-    }
-    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var playerInventory = other.transform.GetComponent<PlayerInventory>();
-
-        if (playerInventory != null) 
-            playerInventory.AddItem(gameObject, false);
+        if (other.tag.Equals("Player")) 
+            _playerInventory.AddItem(this, false);
     }
 
     private void OnDrawGizmos()

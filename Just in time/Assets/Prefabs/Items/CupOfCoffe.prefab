@@ -8,11 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1585739274672443839}
+  - component: {fileID: 7798913939270693416}
   - component: {fileID: 1585739274672443838}
   - component: {fileID: 1585739274672443837}
   - component: {fileID: 1585739274672443836}
   - component: {fileID: 1585739274672443827}
+  - component: {fileID: 579357882099729888}
   m_Layer: 0
   m_Name: CupOfCoffe
   m_TagString: SpeedBooster
@@ -20,7 +21,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1585739274672443839
+--- !u!4 &7798913939270693416
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,8 +143,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b570fcb280b47f749babc66a1ca93289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deltaSpeed: 2000
+  imageSize: {x: 50, y: 100}
+  speedBoost: 2500
   speedUpTime: 5
   timeToWaitForBoost: 5
+  hpRegeneration: 0
   gizmosPositionOffset: 1.2
   isDisplayed: 0
+--- !u!222 &579357882099729888
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585739274672443826}
+  m_CullTransparentMesh: 0

@@ -8,11 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2837944146156198020}
+  - component: {fileID: 1357945061756366600}
   - component: {fileID: 2837944146156198021}
   - component: {fileID: 2837944146156198022}
   - component: {fileID: 2837944146156198023}
   - component: {fileID: 2837944146156198016}
+  - component: {fileID: 3154462400766074042}
   m_Layer: 0
   m_Name: Panini
   m_TagString: HpRegenerator
@@ -20,7 +21,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2837944146156198020
+--- !u!4 &1357945061756366600
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,6 +143,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cce18ba7b45bb94a81b6190f7201d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imageSize: {x: 70, y: 70}
+  speedBoost: 0
+  speedUpTime: 0
+  timeToWaitForBoost: 0
   hpRegeneration: 20
   gizmosPositionOffset: 1.05
   isDisplayed: 0
+--- !u!222 &3154462400766074042
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2837944146156198017}
+  m_CullTransparentMesh: 0
