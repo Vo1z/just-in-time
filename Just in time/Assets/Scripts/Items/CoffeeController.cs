@@ -11,12 +11,6 @@ public class CoffeeController : ConsumableItem
         base.Start();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag.Equals("Player")) 
-            _playerInventory.AddItem(this, false);
-    }
-
     private void OnDrawGizmos()
     {
         if (isDisplayed)

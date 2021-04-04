@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 579357882099729888}
   m_Layer: 0
   m_Name: CupOfCoffe
-  m_TagString: SpeedBooster
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

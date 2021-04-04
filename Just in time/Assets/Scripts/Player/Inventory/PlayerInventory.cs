@@ -8,12 +8,11 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField][Range(0, 10)]
     private int maxNumberOfItems = 5;
 
-    public string[] itemTags = {"SpecialItem", "SpeedBooster", "HpRegenerator"};
-
     private List<Item> _specialItems = new List<Item>();
     private Stack<ConsumableItem> _pocket1 = new Stack<ConsumableItem>();
     private Stack<ConsumableItem> _pocket2 = new Stack<ConsumableItem>();
 
+    public List<Item> SpecialItems => _specialItems;
     public int CurrentNumberOfItems => _pocket1.Count + _pocket2.Count + _specialItems.Count;
 
     public enum Pocket
