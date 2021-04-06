@@ -6,7 +6,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class LightSwitcher : MonoBehaviour
 {
     [SerializeField] private Light2D lightSource;
-    [SerializeField] private float buttonCoolDownSeconds = 1f;
+    [SerializeField] [Range(0,1)] private float buttonCoolDownSeconds = 0.3f;
 
     [Header("Gizmos")] 
     [SerializeField] private bool isDisplayed = true; 

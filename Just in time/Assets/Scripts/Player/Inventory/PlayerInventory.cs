@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class PlayerInventory : MonoBehaviour
 {
     [SerializeField][Range(0, 10)]
     private int maxNumberOfItems = 5;
+    [SerializeField] [Range(0, 10)] private float itemDropCooldown = 0.3f;
 
     private List<Item> _specialItems = new List<Item>();
     private Stack<ConsumableItem> _pocket1 = new Stack<ConsumableItem>();
@@ -14,7 +16,9 @@ public class PlayerInventory : MonoBehaviour
 
     public List<Item> SpecialItems => _specialItems;
     public int CurrentNumberOfItems => _pocket1.Count + _pocket2.Count + _specialItems.Count;
+    public int MaxNumberOfItems => maxNumberOfItems;
 
+    private bool _dropIsAvailable = true;
     public enum Pocket
     {
         Pocket1,
@@ -23,7 +27,7 @@ public class PlayerInventory : MonoBehaviour
     
     public bool AddItem(Item item, bool setActive) 
     {
-        if (CurrentNumberOfItems <= maxNumberOfItems && item != null)
+        if (CurrentNumberOfItems < maxNumberOfItems && item != null)
         {
             if (item is ConsumableItem)
             {
@@ -69,7 +73,6 @@ public class PlayerInventory : MonoBehaviour
                 else
                     return null;
         }
-
         return null;
     }
 
@@ -84,5 +87,29 @@ public class PlayerInventory : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void DropSpecialItem(Item itemToDrop, Vector3 posToDrop)
+    {
+        if (_dropIsAvailable)
+        {
+            if (SpecialItems.Contains(itemToDrop))
+                SpecialItems.Remove(itemToDrop);
+
+            var itemGameObject = itemToDrop.gameObject;
+
+            posToDrop.z = itemToDrop.transform.position.z;
+            itemGameObject.transform.position = posToDrop;
+            itemGameObject.SetActive(true);
+
+            StartCoroutine(StartDropCooldown());
+        }
+    }
+    
+    private IEnumerator StartDropCooldown()
+    {
+        _dropIsAvailable = false;
+        yield return new WaitForSeconds(itemDropCooldown);
+        _dropIsAvailable = true;
     }
 }

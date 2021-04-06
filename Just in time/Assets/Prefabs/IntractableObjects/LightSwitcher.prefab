@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lightSource: {fileID: 0}
-  buttonCoolDownSeconds: 1
+  buttonCoolDownSeconds: 0.3
   isDisplayed: 0
 --- !u!61 &5050619110548250160
 BoxCollider2D:

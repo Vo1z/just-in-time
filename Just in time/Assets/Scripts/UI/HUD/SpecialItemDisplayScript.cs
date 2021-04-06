@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,18 +12,28 @@ public class SpecialItemDisplayScript : MonoBehaviour
     
     private GameObject _parentCanvas;
 
+    private PlayerInventory _playerInventory;
     private List<Item> _specialItems;
     private List<GameObject> _icons = new List<GameObject>();
 
     void Start()
     {
-        _specialItems = GameController.SPlayer.PlayerInventory.SpecialItems;
+        _playerInventory = GameController.SPlayer.PlayerInventory;
+        _specialItems = _playerInventory.SpecialItems;
         _parentCanvas = transform.parent.gameObject;
         
         GetComponent<Image>().enabled = false;
     }
     
     void Update()
+    {
+        if (Input.GetKey(KeyCode.G) && _specialItems.Count > 0)
+        {
+            _playerInventory.DropSpecialItem(_specialItems[_specialItems.Count - 1], GameController.SPlayer.Player.transform.position);
+        }
+    }
+
+    private void LateUpdate()
     {
         if (_icons.Count != _specialItems.Count)
         {
