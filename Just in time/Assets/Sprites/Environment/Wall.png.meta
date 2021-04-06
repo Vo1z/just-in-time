@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: f1653b83cf705f54bbb5bb7cc2ebd504
+guid: f00c917ffeaa4634082c0a55cb909e79
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7967390950800509862
-    second: CupOfTea_0
-  - first:
-      213: 7762337641941673722
-    second: CupOfTea_1
-  - first:
-      213: -1919799579906244305
-    second: CupOfTea_2
-  - first:
-      213: -808344793582255845
-    second: CupOfTea_3
+      213: -5356574185940491189
+    second: Wall_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -53,12 +44,12 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 40
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 30
+  spriteBorder: {x: 34, y: 0, z: 65, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -99,13 +90,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CupOfTea_0
+      name: Wall_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 34
         y: 0
-        width: 12
-        height: 17
+        width: 29
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -113,50 +104,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ab40215bdbd19e60800000000000000
-      internalID: 7967390950800509862
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CupOfTea_1
-      rect:
-        serializedVersion: 2
-        x: 15
-        y: 0
-        width: 12
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: af6a39e65fc59bb60800000000000000
-      internalID: 7762337641941673722
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CupOfTea_2
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 0
-        width: 12
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f218ebf14708b55e0800000000000000
-      internalID: -1919799579906244305
+      spriteID: b446df18820a9a5b0800000000000000
+      internalID: -5356574185940491189
       vertices: []
       indices: 
       edges: []

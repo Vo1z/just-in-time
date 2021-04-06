@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThrowableItemOffset: {x: 0, y: 1.6, z: 0}
+  IsOn: 0
 --- !u!114 &3881050219367074769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,11 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da06b30e03519a6448fc84e2dfc477d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxNumberOfItems: 5
-  itemTags:
-  - Item
-  - SpeedBooster
-  - HpRegenerator
+  maxNumberOfItems: 6
+  itemDropCooldown: 0.3
 --- !u!114 &3881050219367074761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,5 +223,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b77a0085e3d26f94cb90a0f406c11d6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedBoosterCoolDown: 3
-  hpRegeneratorCoolDown: 3
+  pocketCoolDown: 3
