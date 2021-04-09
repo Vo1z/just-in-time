@@ -7,6 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(TextMeshPro))]
 public class DialogCloud : MonoBehaviour
 {
+    [SerializeField] private Vector2 borderOffset;
+    [SerializeField] private GameObject backGroundCloud;
+    
     [SerializeField] private GameObject objectToFollow;
     [SerializeField] [Range(0, .5f)] private float transactionTime;
 
@@ -18,7 +21,7 @@ public class DialogCloud : MonoBehaviour
     private Vector3 _velocity = new Vector3(0,0,0);
     private void Start()
     {
-        gameObject.SetActive(false);
+       gameObject.SetActive(false);
         
         if (objectToFollow != null)
         {
@@ -43,6 +46,9 @@ public class DialogCloud : MonoBehaviour
             destination.z = transform.position.z;
 
             transform.position = Vector3.SmoothDamp(currentPos, destination, ref _velocity, transactionTime);
+            
+            if(isActive && backGroundCloud != null)
+                backGroundCloud.transform.localScale = (Vector2)_textMeshPro.textBounds.size + borderOffset;
         }
     }
 
@@ -53,6 +59,7 @@ public class DialogCloud : MonoBehaviour
         _textMeshPro.SetText(message);
 
         gameObject.SetActive(true);
+        
         StartCoroutine(HideDialogAfterSomeTime(timeout));
     }
 
