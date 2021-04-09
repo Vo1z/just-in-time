@@ -14,6 +14,8 @@ public class Item : MonoBehaviour
     public Sprite InterfaceSprite => _interfaceSprite;
     public Vector2 ImageSize => imageSize;
 
+    public bool IsInInventory { get; protected set; } = false;
+
     protected void Start()
     {
         _playerInventory = GameController.SPlayer.PlayerInventory;
@@ -30,4 +32,6 @@ public class Item : MonoBehaviour
         if (other.tag.Equals("Player") && Input.GetKey(KeyCode.E)) 
             _playerInventory.AddItem(this, false);
     }
+
+    public virtual void SetIsInInventory(bool isInInventory) => IsInInventory = isInInventory;
 }

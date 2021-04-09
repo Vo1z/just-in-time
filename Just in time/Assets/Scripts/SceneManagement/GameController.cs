@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class GameController : MonoBehaviour
-{
+{ 
     public struct SPlayer
     {
         public static GameObject Player { get; internal set; }
@@ -11,7 +12,7 @@ public class GameController : MonoBehaviour
         public static PlayerEnvironmentInteraction PlayerEnvironmentInteraction { get; internal set; }
         
     }
-    
+
     void Awake()
     {
         SPlayer.Player = GameObject.FindWithTag("Player");

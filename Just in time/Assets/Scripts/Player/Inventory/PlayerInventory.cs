@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    [SerializeField][Range(0, 10)]
-    private int maxNumberOfItems = 5;
+    [Range(0, 10)]
+    public int MaxNumberOfItems = 5;
     [SerializeField] [Range(0, 10)] private float itemDropCooldown = 0.3f;
 
     private List<Item> _specialItems = new List<Item>();
@@ -16,7 +16,6 @@ public class PlayerInventory : MonoBehaviour
 
     public List<Item> SpecialItems => _specialItems;
     public int CurrentNumberOfItems => _pocket1.Count + _pocket2.Count + _specialItems.Count;
-    public int MaxNumberOfItems => maxNumberOfItems;
 
     private bool _dropIsAvailable = true;
     public enum Pocket
@@ -27,17 +26,24 @@ public class PlayerInventory : MonoBehaviour
     
     public bool AddItem(Item item, bool setActive) 
     {
-        if (CurrentNumberOfItems < maxNumberOfItems && item != null)
+        if (CurrentNumberOfItems < MaxNumberOfItems && item != null)
         {
             if (item is ConsumableItem)
             {
                 if (_pocket1.Count >= _pocket2.Count)
-                    _pocket2.Push((ConsumableItem)item);
+                {
+                    item.SetIsInInventory(true);
+                    _pocket2.Push((ConsumableItem) item);
+                }
                 else
-                    _pocket1.Push((ConsumableItem)item);
+                {
+                    item.SetIsInInventory(true);
+                    _pocket1.Push((ConsumableItem) item);
+                }
             }
             else
             {
+                item.SetIsInInventory(true);
                 _specialItems.Add(item);
             }
 
@@ -57,7 +63,12 @@ public class PlayerInventory : MonoBehaviour
                 if (_pocket1.Count > 0)
                 {
                     if (removeItem)
-                        return _pocket1.Pop();
+                    {
+                        var item = _pocket1.Pop();
+                        item.SetIsInInventory(false);
+                        return item;
+                    }
+
                     return _pocket1.Peek();
                 }
                 else
@@ -67,7 +78,11 @@ public class PlayerInventory : MonoBehaviour
                 if (_pocket2.Count > 0)
                 {
                     if (removeItem)
-                        return _pocket2.Pop();
+                    {
+                        var item = _pocket1.Pop();
+                        item.SetIsInInventory(false);
+                        return item;
+                    }
                     return _pocket2.Peek();
                 }
                 else
@@ -94,8 +109,11 @@ public class PlayerInventory : MonoBehaviour
         if (_dropIsAvailable)
         {
             if (SpecialItems.Contains(itemToDrop))
+            {
+                itemToDrop.SetIsInInventory(false);
                 SpecialItems.Remove(itemToDrop);
-
+            }
+            
             var itemGameObject = itemToDrop.gameObject;
 
             posToDrop.z = itemToDrop.transform.position.z;
