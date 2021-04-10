@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(ObjectAttributes))]
 public class ThrowableObjectController : MonoBehaviour
 {
     [SerializeField] private float throwingForce = 5f;
@@ -11,11 +13,12 @@ public class ThrowableObjectController : MonoBehaviour
     private PolygonCollider2D _polygonCollider2D;
     private BoxCollider2D _trigger;
     private Rigidbody2D _rigidbody2D;
+    private ObjectAttributes _objectAttributes;
     
     private bool _isReadyToThrow = false;
     private GameObject _player;
     private PlayerAttributes _playerAttributes;
-    
+
     private void Start()
     {
         _polygonCollider2D = GetComponent<PolygonCollider2D>();
@@ -23,6 +26,7 @@ public class ThrowableObjectController : MonoBehaviour
         _player = GameController.SPlayer.Player;
         _playerAttributes = GameController.SPlayer.PlayerAttributes;
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _objectAttributes = GetComponent<ObjectAttributes>();
 
         _trigger.isTrigger = true;
         
@@ -31,6 +35,9 @@ public class ThrowableObjectController : MonoBehaviour
 
     private void Update()
     {
+        // Debug.Log(_rigidbody2D.velocity);
+        
+        //Logic behind throwable object carrying
         if (_isReadyToThrow && _player != null)
         {
             var velocity = Vector3.zero;
@@ -38,6 +45,7 @@ public class ThrowableObjectController : MonoBehaviour
 
             transform.position = Vector3.SmoothDamp(transform.position, itemPosition, ref velocity, .01f);
 
+            //Throwing logic
             if (Input.GetKey(KeyCode.RightControl))
             {
                 _rigidbody2D.isKinematic = false;
@@ -57,6 +65,16 @@ public class ThrowableObjectController : MonoBehaviour
             _isReadyToThrow = true;
             _rigidbody2D.isKinematic = true;
             _rigidbody2D.angularVelocity = 0;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        var otherObjectAttributes = other.GetComponent<ObjectAttributes>();
+        if (otherObjectAttributes != null)
+        {
+            otherObjectAttributes.Hurt(_objectAttributes.Damage);
+            _objectAttributes.Hurt(otherObjectAttributes.Damage * .5f);
         }
     }
 }

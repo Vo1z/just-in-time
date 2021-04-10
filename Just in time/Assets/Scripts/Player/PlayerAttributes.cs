@@ -4,26 +4,20 @@ using UnityEngine;
 public class PlayerAttributes : MonoBehaviour
 {
     [Range(0, 100)]
-    [SerializeField] private float health = 100f;
+    [SerializeField] private float healthPoints = 100f;
     [SerializeField] private float speed = 250f;
     [SerializeField] private float jumpForce = 10f;
     
     public bool IsUnderSpeedBoost { get; private set; } = false;
     public float Speed => speed;
     public float JumpForce => jumpForce;
-    public float Health => health;
+    public float HealthPoints => healthPoints;
 
     private float _originalSpeed;
 
     private void Start()
     {
         _originalSpeed = speed;
-    }
-
-    private void Update()
-    {
-        if (health < 1) 
-            Destroy(gameObject);
     }
 
     public void SpeedUp(float deltaSpeed, float speedUpTime, float timeToWaitForBoost = 5f) => StartCoroutine(IncreaseSpeed(deltaSpeed, speedUpTime, timeToWaitForBoost));
@@ -47,7 +41,16 @@ public class PlayerAttributes : MonoBehaviour
         speed = _originalSpeed;
     }
 
-    public void Hurt(float damage) => health -= damage;
+    public void Hurt(float damage)
+    {
+        healthPoints -= Mathf.Max(0, damage);
+        if (healthPoints < 1) 
+            Destroy(gameObject);
+    }
 
-    public void RegenerateHealth(float regenerationPoints) => health += regenerationPoints;
+    public void Heal(float regenerationPoints)
+    {
+        healthPoints += Mathf.Max(0, regenerationPoints);
+        healthPoints = Mathf.Min(healthPoints, 100); //Change last value if health could be more then 100 points
+    }
 }

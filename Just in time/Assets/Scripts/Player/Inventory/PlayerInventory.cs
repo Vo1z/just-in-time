@@ -79,7 +79,7 @@ public class PlayerInventory : MonoBehaviour
                 {
                     if (removeItem)
                     {
-                        var item = _pocket1.Pop();
+                        var item = _pocket2.Pop();
                         item.SetIsInInventory(false);
                         return item;
                     }

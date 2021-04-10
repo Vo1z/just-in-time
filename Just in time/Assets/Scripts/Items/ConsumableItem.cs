@@ -24,7 +24,7 @@ public class ConsumableItem : Item
         if(speedBoost > 0)
             _playerAttributes.SpeedUp(speedBoost, speedUpTime, timeToWaitForBoost);
         if(hpRegeneration > 0)
-            _playerAttributes.RegenerateHealth(hpRegeneration);
+            _playerAttributes.Heal(hpRegeneration);
         
         Destroy(gameObject);
     }

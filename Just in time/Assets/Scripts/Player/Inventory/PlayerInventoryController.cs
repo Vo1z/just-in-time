@@ -30,10 +30,10 @@ public class PlayerInventoryController : MonoBehaviour
         switch (pocket)
         {
             case PlayerInventory.Pocket.Pocket1:
-                var consumable1 = _inventory.GetItemFromPocket(PlayerInventory.Pocket.Pocket1, true);
-                if (consumable1 != null)
+                var consumableFromPocket1 = _inventory.GetItemFromPocket(PlayerInventory.Pocket.Pocket1, true);
+                if (consumableFromPocket1 != null)
                 {
-                    consumable1.Consume();
+                    consumableFromPocket1.Consume();
                     _pocket1IsReady = false;
 
                     yield return new WaitForSeconds(pocketCoolDown);
@@ -43,10 +43,10 @@ public class PlayerInventoryController : MonoBehaviour
                 break;
             
             case PlayerInventory.Pocket.Pocket2:
-                var consumable2 = _inventory.GetItemFromPocket(PlayerInventory.Pocket.Pocket2, true);
-                if (consumable2 != null)
+                var consumableFormPocket2 = _inventory.GetItemFromPocket(PlayerInventory.Pocket.Pocket2, true);
+                if (consumableFormPocket2 != null)
                 {
-                    consumable2.Consume();
+                    consumableFormPocket2.Consume();
                     _pocket2IsReady = false;
 
                     yield return new WaitForSeconds(pocketCoolDown);
