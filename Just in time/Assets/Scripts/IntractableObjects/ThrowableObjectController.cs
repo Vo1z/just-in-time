@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -9,6 +8,8 @@ public class ThrowableObjectController : MonoBehaviour
     [SerializeField] private float throwingForce = 5f;
     [Range(0, 3)]
     [SerializeField] private float boostUnderSpeedBuff = 1.5f;
+
+    [SerializeField] private bool isActivateInvocableObjects = false;
 
     private PolygonCollider2D _polygonCollider2D;
     private BoxCollider2D _trigger;
@@ -68,9 +69,15 @@ public class ThrowableObjectController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        var otherObjectAttributes = other.GetComponent<ObjectAttributes>();
+        var otherObjectAttributes = other.gameObject.GetComponent<ObjectAttributes>();
+        var interactibleObject = other.gameObject.GetComponents<IInvocable>();
+        
+        if (isActivateInvocableObjects && interactibleObject.Length > 0)
+            foreach (var invocable in interactibleObject)
+                invocable.InvokeAction();
+        
         if (otherObjectAttributes != null)
         {
             otherObjectAttributes.Hurt(_objectAttributes.Damage);
