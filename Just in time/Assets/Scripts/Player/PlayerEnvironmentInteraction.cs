@@ -1,7 +1,6 @@
-﻿using System;
-using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
+///<sumary>Class that is responsible for handling interaction with environment</sumary>
 public class PlayerEnvironmentInteraction : MonoBehaviour
 {
     public Vector3 ThrowableItemOffset;
@@ -13,13 +12,15 @@ public class PlayerEnvironmentInteraction : MonoBehaviour
         set => _dialogCloudGameObject = value;
     }
 
-    [SerializeField] private bool IsOn = true;
+    [Header("Gizmos")]
+    [SerializeField] private bool isDisplayed = true;
+
     private void OnDrawGizmos()
     {
-        if (IsOn)
-        {
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawCube(transform.position + ThrowableItemOffset, Vector3.one);
-        }
+        if (!isDisplayed)
+            return;
+        
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawCube(transform.position + ThrowableItemOffset, Vector3.one);
     }
 }

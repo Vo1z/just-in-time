@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+///<summary>Script for displaying items from given pocket in inventory</summary>
 [RequireComponent(typeof(Image))]
 public class ConsumablesDisplayScript : MonoBehaviour
 {

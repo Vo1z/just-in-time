@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 
+///<summary>Script that is responsible for displaying and controlling dialog clouds</summary>>
 [RequireComponent(typeof(TextMeshPro))]
 public class DialogCloud : MonoBehaviour
 {
     [SerializeField] private Vector2 borderOffset;
-    [SerializeField] private GameObject backGroundCloud;
+    [SerializeField] private GameObject backgroundCloud;
     
     [SerializeField] private GameObject objectToFollow;
     [SerializeField] [Range(0, .5f)] private float transactionTime;
@@ -20,8 +19,8 @@ public class DialogCloud : MonoBehaviour
 
     private Vector3 _velocity = new Vector3(0,0,0);
     private void Start()
-    {
-       gameObject.SetActive(false);
+    { 
+        gameObject.SetActive(false);
         
         if (objectToFollow != null)
         {
@@ -47,8 +46,8 @@ public class DialogCloud : MonoBehaviour
 
             transform.position = Vector3.SmoothDamp(currentPos, destination, ref _velocity, transactionTime);
             
-            if(isActive && backGroundCloud != null)
-                backGroundCloud.transform.localScale = (Vector2)_textMeshPro.textBounds.size + borderOffset;
+            if(isActive && backgroundCloud != null)
+                backgroundCloud.transform.localScale = (Vector2)_textMeshPro.textBounds.size + borderOffset;
         }
     }
 
@@ -71,10 +70,10 @@ public class DialogCloud : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (objectToFollow != null && isActive)
-        {
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawLine(transform.position, objectToFollow.transform.position);
-        }
+        if (objectToFollow == null || !isActive)
+            return;
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawLine(transform.position, objectToFollow.transform.position);
     }
 }

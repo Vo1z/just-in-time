@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+///<sumary>Script that describes behaviour of object that can be thrown in the scene</sumary>
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(ObjectAttributes))]
@@ -36,8 +37,6 @@ public class ThrowableObjectController : MonoBehaviour
 
     private void Update()
     {
-        // Debug.Log(_rigidbody2D.velocity);
-        
         //Logic behind throwable object carrying
         if (_isReadyToThrow && _player != null)
         {

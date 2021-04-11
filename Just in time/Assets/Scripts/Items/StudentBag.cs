@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+///<sumary>Class for handling student bag item behaviour</sumary>
 public class StudentBag : Item
 {
     [SerializeField] [Min(0)] private int numberOfBonusSlotsInInventory = 3;

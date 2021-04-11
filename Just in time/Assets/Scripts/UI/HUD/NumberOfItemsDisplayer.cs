@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
+///<summary>Script that displays number of free slots in inventory</summary>
 [RequireComponent(typeof(Text))]
 public class NumberOfItemsDisplayer : MonoBehaviour
 {

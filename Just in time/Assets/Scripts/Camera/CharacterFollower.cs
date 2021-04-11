@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+///<sumary>
+/// Script(mainly for camera) that makes game object(to which this script is attached)
+/// smoothly follow referenced game object
+/// </sumary>
 [RequireComponent(typeof(Camera))]
 public class CharacterFollower : MonoBehaviour
 {

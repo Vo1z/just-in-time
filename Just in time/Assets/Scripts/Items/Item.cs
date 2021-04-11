@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
 
+///<sumary>Class that describes behavior of an item</sumary>
 [RequireComponent(typeof(Collider2D))]
 public class Item : MonoBehaviour
 {
@@ -32,6 +32,7 @@ public class Item : MonoBehaviour
         if (other.tag.Equals("Player") && Input.GetKey(KeyCode.E)) 
             _playerInventory.AddItem(this, false);
     }
-
+    
+    //Method that invokes when item is added to player's inventory
     public virtual void SetIsInInventory(bool isInInventory) => IsInInventory = isInInventory;
 }

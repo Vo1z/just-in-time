@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿//Class was created for future modifications (nevermind its emptiness)
 public class StudentCard : Item
 {
     private new void Start()
     {
         base.Start();
     }
-    
 }

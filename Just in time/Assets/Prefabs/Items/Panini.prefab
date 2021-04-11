@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2837944146156198021}
   - component: {fileID: 2837944146156198022}
   - component: {fileID: 2837944146156198023}
-  - component: {fileID: 2837944146156198016}
   - component: {fileID: 3154462400766074042}
+  - component: {fileID: 9153926304479683907}
   m_Layer: 0
   m_Name: Panini
   m_TagString: Item
@@ -131,25 +131,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7579278, y: 0.701854}
   m_EdgeRadius: 0
---- !u!114 &2837944146156198016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2837944146156198017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cce18ba7b45bb94a81b6190f7201d69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imageSize: {x: 70, y: 70}
-  speedBoost: 0
-  speedUpTime: 0
-  timeToWaitForBoost: 0
-  hpRegeneration: 20
-  gizmosPositionOffset: 1.05
-  isDisplayed: 0
 --- !u!222 &3154462400766074042
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -158,3 +139,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2837944146156198017}
   m_CullTransparentMesh: 0
+--- !u!114 &9153926304479683907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2837944146156198017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 097114ff02e1a8b428383af479f293d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imageSize: {x: 70, y: 70}
+  speedBoost: 0
+  speedUpTime: 0
+  timeToWaitForBoost: 0
+  hpRegeneration: 20
+  gizmosPositionOffset: 1.2
+  isDisplayed: 1

@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 
+
+///<sumary>Class for handling player movement</sumary>
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerAttributes))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(BoxCollider2D))]
-public class PlayerController : MonoBehaviour
+public class PlayerMovementController : MonoBehaviour
 {
     private Rigidbody2D _playerRigidBody;
     private PlayerAttributes _playerAttributes;

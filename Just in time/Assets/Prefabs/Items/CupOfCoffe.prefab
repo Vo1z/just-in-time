@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1585739274672443838}
   - component: {fileID: 1585739274672443837}
   - component: {fileID: 1585739274672443836}
-  - component: {fileID: 1585739274672443827}
   - component: {fileID: 579357882099729888}
+  - component: {fileID: 233657747}
   m_Layer: 0
   m_Name: CupOfCoffe
   m_TagString: Item
@@ -131,25 +131,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3967185, y: 0.6108196}
   m_EdgeRadius: 0
---- !u!114 &1585739274672443827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1585739274672443826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b570fcb280b47f749babc66a1ca93289, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imageSize: {x: 50, y: 100}
-  speedBoost: 2500
-  speedUpTime: 5
-  timeToWaitForBoost: 5
-  hpRegeneration: 0
-  gizmosPositionOffset: 1.2
-  isDisplayed: 0
 --- !u!222 &579357882099729888
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -158,3 +139,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585739274672443826}
   m_CullTransparentMesh: 0
+--- !u!114 &233657747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585739274672443826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 097114ff02e1a8b428383af479f293d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imageSize: {x: 50, y: 100}
+  speedBoost: 2500
+  speedUpTime: 5
+  timeToWaitForBoost: 5
+  hpRegeneration: 0
+  gizmosPositionOffset: 1.2
+  isDisplayed: 1

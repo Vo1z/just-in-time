@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+///<sumary>Class that holds information and logic behind attributes of an object</sumary>
 public class ObjectAttributes : MonoBehaviour
 {
     [SerializeField] [Range(0, 100)] private float healthPoints = 100;

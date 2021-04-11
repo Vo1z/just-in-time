@@ -1,6 +1,6 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
+///<summary>Class for managing global behaviour of the scene and accessing some objects on the scene for optimization</summary>
 public class GameController : MonoBehaviour
 { 
     public struct SPlayer

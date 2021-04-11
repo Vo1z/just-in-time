@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
+///<summary>Class that holds information about players inventory and provides api for its managing</summary>
 public class PlayerInventory : MonoBehaviour
 {
     [Range(0, 10)]
@@ -23,46 +22,44 @@ public class PlayerInventory : MonoBehaviour
         Pocket1,
         Pocket2,
     }
-    
-    public bool AddItem(Item item, bool setActive) 
+
+    public bool AddItem(Item item, bool setActive)
     {
-        if (CurrentNumberOfItems < MaxNumberOfItems && item != null)
+        if (CurrentNumberOfItems >= MaxNumberOfItems || item == null)
+            return false;
+        
+        if (item is ConsumableItem)
         {
-            if (item is ConsumableItem)
+            if (_pocket1.Count >= _pocket2.Count)
             {
-                if (_pocket1.Count >= _pocket2.Count)
-                {
-                    item.SetIsInInventory(true);
-                    _pocket2.Push((ConsumableItem) item);
-                }
-                else
-                {
-                    item.SetIsInInventory(true);
-                    _pocket1.Push((ConsumableItem) item);
-                }
+                item.SetIsInInventory(true);
+                _pocket2.Push((ConsumableItem) item);
             }
             else
             {
                 item.SetIsInInventory(true);
-                _specialItems.Add(item);
+                _pocket1.Push((ConsumableItem) item);
             }
-
-            item.gameObject.SetActive(setActive);
-            
-            return true;
+        }
+        else
+        {
+            item.SetIsInInventory(true);
+            _specialItems.Add(item);
         }
 
-        return false;
+        item.gameObject.SetActive(setActive);
+
+        return true;
     }
 
-    public ConsumableItem GetItemFromPocket(Pocket pocket, bool removeItem = false)
+    public ConsumableItem GetItemFromPocket(Pocket pocket, bool removeItemFromInventory = false)
     {
         switch (pocket)
         {
             case Pocket.Pocket1:
                 if (_pocket1.Count > 0)
                 {
-                    if (removeItem)
+                    if (removeItemFromInventory)
                     {
                         var item = _pocket1.Pop();
                         item.SetIsInInventory(false);
@@ -77,7 +74,7 @@ public class PlayerInventory : MonoBehaviour
             case Pocket.Pocket2:
                 if (_pocket2.Count > 0)
                 {
-                    if (removeItem)
+                    if (removeItemFromInventory)
                     {
                         var item = _pocket2.Pop();
                         item.SetIsInInventory(false);
@@ -88,6 +85,7 @@ public class PlayerInventory : MonoBehaviour
                 else
                     return null;
         }
+        
         return null;
     }
 
@@ -106,24 +104,24 @@ public class PlayerInventory : MonoBehaviour
 
     public void DropSpecialItem(Item itemToDrop, Vector3 posToDrop)
     {
-        if (_dropIsAvailable)
+        if (!_dropIsAvailable)
+            return;
+
+        if (SpecialItems.Contains(itemToDrop))
         {
-            if (SpecialItems.Contains(itemToDrop))
-            {
-                itemToDrop.SetIsInInventory(false);
-                SpecialItems.Remove(itemToDrop);
-            }
-            
-            var itemGameObject = itemToDrop.gameObject;
-
-            posToDrop.z = itemToDrop.transform.position.z;
-            itemGameObject.transform.position = posToDrop;
-            itemGameObject.SetActive(true);
-
-            StartCoroutine(StartDropCooldown());
+            itemToDrop.SetIsInInventory(false);
+            SpecialItems.Remove(itemToDrop);
         }
+
+        var itemGameObject = itemToDrop.gameObject;
+
+        posToDrop.z = itemToDrop.transform.position.z;
+        itemGameObject.transform.position = posToDrop;
+        itemGameObject.SetActive(true);
+
+        StartCoroutine(StartDropCooldown());
     }
-    
+
     private IEnumerator StartDropCooldown()
     {
         _dropIsAvailable = false;

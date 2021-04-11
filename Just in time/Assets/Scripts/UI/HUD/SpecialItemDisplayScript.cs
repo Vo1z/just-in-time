@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+///<summary>Script for displaying items from player's inventor's special pocket</summary>
 public class SpecialItemDisplayScript : MonoBehaviour
 {
     [SerializeField] private float spacing = 5f;
@@ -23,14 +22,6 @@ public class SpecialItemDisplayScript : MonoBehaviour
         _parentCanvas = transform.parent.gameObject;
         
         GetComponent<Image>().enabled = false;
-    }
-    
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.G) && _specialItems.Count > 0)
-        {
-            _playerInventory.DropSpecialItem(_specialItems[_specialItems.Count - 1], GameController.SPlayer.Player.transform.position);
-        }
     }
 
     private void LateUpdate()

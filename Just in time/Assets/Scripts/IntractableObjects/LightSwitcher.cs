@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
+///<sumary>Script that describes behaviour of a light switcher in the scene</sumary>
 [RequireComponent(typeof(Animator))]
 public class LightSwitcher : MonoBehaviour
 {
@@ -41,10 +42,10 @@ public class LightSwitcher : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (isDisplayed)
-        {
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawLine(transform.position, lightSource.transform.position);
-        }
+        if (!isDisplayed)
+            return;
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawLine(transform.position, lightSource.transform.position);
     }
 }

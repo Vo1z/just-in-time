@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+///<sumary>Class that holds information and logic behind player's attributes</sumary>
 public class PlayerAttributes : MonoBehaviour
 {
     [Range(0, 100)]
@@ -15,10 +16,7 @@ public class PlayerAttributes : MonoBehaviour
 
     private float _originalSpeed;
 
-    private void Start()
-    {
-        _originalSpeed = speed;
-    }
+    private void Start() => _originalSpeed = speed;
 
     public void SpeedUp(float deltaSpeed, float speedUpTime, float timeToWaitForBoost = 5f) => StartCoroutine(IncreaseSpeed(deltaSpeed, speedUpTime, timeToWaitForBoost));
 

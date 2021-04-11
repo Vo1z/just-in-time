@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+///<summary>Class that describes behaviour of ConsumableItem responsible for managing</summary>
 public class ConsumableItem : Item
 {
     [Header("Consumables option")]
@@ -10,6 +9,9 @@ public class ConsumableItem : Item
     [SerializeField] protected float timeToWaitForBoost;
     [SerializeField] protected float hpRegeneration;
 
+    [Header("Gizmos")] 
+    [SerializeField] private float gizmosPositionOffset = 1.2f;
+    [SerializeField] private bool isDisplayed = true;
 
     protected PlayerAttributes _playerAttributes;
     
@@ -27,5 +29,14 @@ public class ConsumableItem : Item
             _playerAttributes.Heal(hpRegeneration);
         
         Destroy(gameObject);
+    }
+    
+    private void OnDrawGizmos()
+    {
+        if (!isDisplayed)
+            return;
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawLine(transform.position, transform.position + (Vector3.down * gizmosPositionOffset));
     }
 }
