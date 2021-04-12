@@ -152,9 +152,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imageSize: {x: 50, y: 100}
-  speedBoost: 2500
-  speedUpTime: 5
-  timeToWaitForBoost: 5
-  hpRegeneration: 0
+  consumableData: {fileID: 11400000, guid: bae9bf5a698d72a4699b4890313c012f, type: 2}
   gizmosPositionOffset: 1.2
   isDisplayed: 1

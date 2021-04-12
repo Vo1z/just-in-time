@@ -1,13 +1,11 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 ///<summary>Class that describes behaviour of ConsumableItem responsible for managing</summary>
 public class ConsumableItem : Item
 {
-    [Header("Consumables option")]
-    [SerializeField] protected float speedBoost;
-    [SerializeField] protected float speedUpTime;
-    [SerializeField] protected float timeToWaitForBoost;
-    [SerializeField] protected float hpRegeneration;
+    [Header("Consumables option")] 
+    [SerializeField] [NotNull]private ConsumableData consumableData;
 
     [Header("Gizmos")] 
     [SerializeField] private float gizmosPositionOffset = 1.2f;
@@ -23,11 +21,12 @@ public class ConsumableItem : Item
     
     public virtual void Consume()
     {
-        if(speedBoost > 0)
-            _playerAttributes.SpeedUp(speedBoost, speedUpTime, timeToWaitForBoost);
-        if(hpRegeneration > 0)
-            _playerAttributes.Heal(hpRegeneration);
-        
+        if(consumableData.SpeedBoost > 0)
+            _playerAttributes.SpeedUp(consumableData.SpeedBoost,
+                consumableData.SpeedUpTime, consumableData.TimeToWaitForBoost);
+        if(consumableData.HpRegeneration > 0)
+            _playerAttributes.Heal(consumableData.HpRegeneration);
+
         Destroy(gameObject);
     }
     
