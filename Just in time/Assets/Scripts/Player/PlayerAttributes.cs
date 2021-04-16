@@ -4,19 +4,24 @@ using UnityEngine;
 ///<sumary>Class that holds information and logic behind player's attributes</sumary>
 public class PlayerAttributes : MonoBehaviour
 {
-    [Range(0, 100)]
-    [SerializeField] private float healthPoints = 100f;
-    [SerializeField] private float speed = 250f;
-    [SerializeField] private float jumpForce = 10f;
+    [SerializeField][Min(0f)] private float maxHealthPoints = 100f;
+    [SerializeField][Min(0f)] private float healthPoints = 100f;
+    [SerializeField][Min(0f)] private float speed = 250f;
+    [SerializeField][Min(0f)] private float jumpForce = 10f;
     
     public bool IsUnderSpeedBoost { get; private set; } = false;
     public float Speed => speed;
     public float JumpForce => jumpForce;
+    public float MaxHealthPoints => maxHealthPoints;
     public float HealthPoints => healthPoints;
 
     private float _originalSpeed;
 
-    private void Start() => _originalSpeed = speed;
+    private void Start()
+    {
+        _originalSpeed = speed;
+        healthPoints = Mathf.Clamp(healthPoints, 0, maxHealthPoints);
+    }
 
     public void SpeedUp(float deltaSpeed, float speedUpTime, float timeToWaitForBoost = 5f) => StartCoroutine(IncreaseSpeed(deltaSpeed, speedUpTime, timeToWaitForBoost));
 

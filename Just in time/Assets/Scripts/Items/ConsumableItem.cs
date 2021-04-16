@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using UnityEngine;
 
-///<summary>Class that describes behaviour of ConsumableItem responsible for managing</summary>
+///<summary>Class that describes behaviour of ConsumableItem and responsible for managing</summary>
 public class ConsumableItem : Item
 {
     [Header("Consumables option")] 
